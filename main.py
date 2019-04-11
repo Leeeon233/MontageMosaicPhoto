@@ -3,6 +3,7 @@ import os
 
 import numpy as np
 from PIL import Image
+import cv2
 
 
 def run(args):
@@ -33,7 +34,7 @@ def run(args):
 
 def genImage(matrix, shape, args):
     w, h = shape
-    img = np.zeros((h * args.img_size, w * args.img_size, 3))
+    img = np.zeros((h * args.img_size, w * args.img_size, 3)).astype(np.uint8)
     for y in range(w):
         for x in range(h):
             img[x * args.img_size:(x + 1) * args.img_size, y * args.img_size:(y + 1) * args.img_size, :] = np.array(
@@ -45,9 +46,10 @@ def genImage(matrix, shape, args):
         os.remove(os.path.join(tmp_path, file))
     # os.remove(tmp_path)
     print("最终图像大小", img.shape)
-    img = Image.fromarray(np.uint8(img))
+    # img = Image.fromarray(img)
     print("保存图像中")
-    img.save(args.save_path)
+    # img.save(args.save_path)
+    cv2.imwrite(args.save_path, img[:, :, ::-1])
     print("图像保存路径：", args.save_path)
 
 
