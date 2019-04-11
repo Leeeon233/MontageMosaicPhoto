@@ -75,7 +75,7 @@ def gen_pics(args):
                 w, h = img.size
                 if w < args.img_size or h < args.img_size:
                     s = args.img_size / min(w, h)
-                    img = img.reszie((w * s, h * s))
+                    img = img.resize((w * s, h * s))
                     if w > h:
                         p = (w * s - args.img_size) // 2
                         img = img.crop((p, 0, args.img_size + p, args.img_size))
